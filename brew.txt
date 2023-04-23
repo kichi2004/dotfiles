@@ -1,0 +1,11 @@
+bat
+exa
+gh
+neofetch
+nodenv
+pyenv
+tree
+zip
+zsh-completions
+neovim
+
