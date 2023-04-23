@@ -21,7 +21,14 @@ autoload -Uz colors
 colors
 
 # -- brew --
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+case ${OSTYPE} in
+  darwin*)
+    eval "$(/usr/local/bin/brew shellenv)"
+    ;;
+  linux*)
+    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+    ;;
+esac
 
 # -- sheldon --
 eval "$(sheldon source)"
