@@ -8,4 +8,6 @@ tree
 zip
 zsh-completions
 neovim
+starship
+sheldon
 
