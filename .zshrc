@@ -37,6 +37,13 @@ if type brew &>/dev/null; then
     compinit
   fi
 
+## -- PATH --
+eval "$(nodenv init -)"
+export PATH="`yarn global bin`:$HOME/.rbenv/shims:$(pyenv root)/shims:$HOME/.nodenv/bin:$PATH"
+if [ -d "/mnt/c/Users/kichi/AppData/Local/Programs/Microsoft VS Code/bin"]; then
+	export PATH="$PATH:/mnt/c/Users/kichi/AppData/Local/Programs/Microsoft VS Code/bin"
+fi
+
 ## -- brew --
 FPATH=~/.zsh/completion:$(brew --prefix)/share/zsh/site-functions:$FPATH
 
