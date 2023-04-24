@@ -1,7 +1,7 @@
 import os
 
 DOT_FILES = [
-    '.config/neovim',
+    '.config/nvim',
     '.config/sheldon',
     '.config/starship.toml',
     '.zshrc'
