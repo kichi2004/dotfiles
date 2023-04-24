@@ -46,7 +46,7 @@ if type brew &>/dev/null; then
 
 ## -- PATH --
 eval "$(nodenv init -)"
-export PATH="`yarn global bin`:$HOME/.rbenv/shims:$(pyenv root)/shims:$HOME/.nodenv/bin:$PATH"
+export PATH="`yarn global bin`:$HOME/.rbenv/shims:$(pyenv root)/shims:$HOME/.nodenv/bin:$HOME/.dotnet:$PATH"
 if [ -d "/mnt/c/Users/kichi/AppData/Local/Programs/Microsoft VS Code/bin" ]; then
 	export PATH="$PATH:/mnt/c/Users/kichi/AppData/Local/Programs/Microsoft VS Code/bin"
 fi
