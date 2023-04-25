@@ -22,7 +22,7 @@ $dotnet\
 $python\
 $docker_context \
 $cmd_duration
- $character
+ $character\
 """
 
 # Disable the blank line at the start of the prompt
@@ -38,8 +38,10 @@ format = '[$ssh_symbol$hostname ]($style)'
 [shell]
 disabled = false
 zsh_indicator = ''
-powershell_indicator = '_'
-format = '[($indicator )]($style)'
+powershell_indicator = "\uebc7  "
+unknown_indicator = '?'
+style = 'white bold'
+format = '[$indicator]($style)'
 
 [character]
 success_symbol = "[❯](bold #20b000)"
