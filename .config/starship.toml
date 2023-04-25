@@ -83,6 +83,7 @@ format = '[$symbol $version]($style)'
 [os.symbols]
 Ubuntu = "\ue73a"
 Macos = "\ue711"
+Fedora = "\uf30a"
 
 [directory]
 style = "fg:#eaea80"
