@@ -1,6 +1,7 @@
-require("options")
+require "options"
 require "plugins"
-require("keymap")
+require "keymap"
+require "colorscheme"
 
 
 vim.api.nvim_create_autocmd("BufWritePost", {

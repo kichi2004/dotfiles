@@ -10,4 +10,8 @@ zsh-completions
 neovim
 starship
 sheldon
+z
+julia
+httpie
+gcc
 

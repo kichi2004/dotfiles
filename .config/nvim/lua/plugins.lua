@@ -6,6 +6,7 @@ require("packer").startup(function()
     use 'williamboman/mason.nvim'
     use 'williamboman/mason-lspconfig.nvim'
     use 'vim-latex/vim-latex'
+    use 'EdenEast/nightfox.nvim'
     use {
         "hrsh7th/nvim-cmp",
         requires = {

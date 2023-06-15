@@ -36,6 +36,9 @@ eval "$(sheldon source)"
 # -- starship --
 eval "$(starship init zsh)"
 
+# -- z --
+. ~/z/z.sh
+
 # -- completions --
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
@@ -46,9 +49,13 @@ if type brew &>/dev/null; then
 
 ## -- PATH --
 eval "$(nodenv init -)"
-export PATH="`yarn global bin`:$HOME/.rbenv/shims:$(pyenv root)/shims:$HOME/.nodenv/bin:$HOME/.dotnet:$PATH"
+export PATH="$HOME/.cargo/bin:`yarn global bin`:$HOME/.rbenv/shims:$HOME/.nodenv/bin:$HOME/.dotnet:$PATH"
 if [ -d "/mnt/c/Users/kichi/AppData/Local/Programs/Microsoft VS Code/bin" ]; then
 	export PATH="$PATH:/mnt/c/Users/kichi/AppData/Local/Programs/Microsoft VS Code/bin"
+fi
+
+if [[ -d "/Applications/SWI-Prolog.app/Contents/MacOS" ]] then
+    export PATH="$PATH:/Applications/SWI-Prolog.app/Contents/MacOS"
 fi
 
 ## -- brew --
@@ -56,6 +63,9 @@ FPATH=~/.zsh/completion:$(brew --prefix)/share/zsh/site-functions:$FPATH
 
 autoload -Uz compinit
 compinit -i
+
+## -- pyenv --
+eval "$(pyenv init -)"
 
 ## -- alias --
 alias la='exa -a'
