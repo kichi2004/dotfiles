@@ -58,6 +58,9 @@ if [[ -d "/Applications/SWI-Prolog.app/Contents/MacOS" ]] then
     export PATH="$PATH:/Applications/SWI-Prolog.app/Contents/MacOS"
 fi
 
+## -- environment --
+export EDITOR="nvim"
+
 ## -- brew --
 FPATH=~/.zsh/completion:$(brew --prefix)/share/zsh/site-functions:$FPATH
 
@@ -67,10 +70,14 @@ compinit -i
 ## -- pyenv --
 eval "$(pyenv init -)"
 
+## -- fzf --
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 ## -- alias --
 alias la='exa -a'
 alias l='exa -a1'
 alias ls='exa'
 alias cat='bat'
 alias vim='nvim'
+
 
