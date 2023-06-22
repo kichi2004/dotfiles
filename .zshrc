@@ -26,12 +26,20 @@ case ${OSTYPE} in
     eval "$(/usr/local/bin/brew shellenv)"
     ;;
   linux*)
-    eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+      if type git &>/dev/null; then
+        if [[ -d $HOME/.homebrew ]] then
+            eval "$($HOME/.homebrew/bin/brew shellenv)"
+        else
+            eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+        fi
+      fi
     ;;
 esac
 
 # -- sheldon --
-eval "$(sheldon source)"
+if type sheldon &>/dev/null; then
+    eval "$(sheldon source)"
+fi
 
 # -- starship --
 eval "$(starship init zsh)"
@@ -48,8 +56,14 @@ if type brew &>/dev/null; then
   fi
 
 ## -- PATH --
-eval "$(nodenv init -)"
-export PATH="$HOME/.cargo/bin:`yarn global bin`:$HOME/.rbenv/shims:$HOME/.nodenv/bin:$HOME/.dotnet:$PATH"
+if type nodenv &> /dev/null; then
+    eval "$(nodenv init -)"
+fi
+export PATH="$HOME/.cargo/bin:$HOME/.rbenv/shims:$HOME/.nodenv/bin:$HOME/.dotnet:$PATH"
+
+if [[ (( ! $+commands[yarn] )) ]] then
+    export PATH="$PATH:`yarn global bin`"
+fi
 if [ -d "/mnt/c/Users/kichi/AppData/Local/Programs/Microsoft VS Code/bin" ]; then
 	export PATH="$PATH:/mnt/c/Users/kichi/AppData/Local/Programs/Microsoft VS Code/bin"
 fi
@@ -63,21 +77,30 @@ export EDITOR="nvim"
 
 ## -- brew --
 FPATH=~/.zsh/completion:$(brew --prefix)/share/zsh/site-functions:$FPATH
+if [[ -d "/home/ugrad/22/s2211093" ]] then
+    export PATH="$PATH:/home/ugrad/22/s2211093/bin"
+    alias pbcopy="xsel --clipboard --input"
+    alias nvim="$HOME/bin/nvim.appimage"
+fi
 
 autoload -Uz compinit
 compinit -i
 
 ## -- pyenv --
-eval "$(pyenv init -)"
+if type pyenv &> /dev/null; then
+    eval "$(pyenv init -)"
+fi
 
 ## -- fzf --
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ## -- alias --
-alias la='exa -a'
-alias l='exa -a1'
-alias ls='exa'
-alias cat='bat'
+if type brew &>/dev/null; then
+    alias la='exa -a'
+    alias l='exa -a1'
+    alias ls='exa'
+    alias cat='bat'
+fi
 alias vim='nvim'
 
 
