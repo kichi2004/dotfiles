@@ -1,8 +1,9 @@
 require "options"
-require "plugins"
+require "extensions"
 require "keymap"
 require "colorscheme"
 
+vim.loader.enable()
 
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = { "plugins.lua" },

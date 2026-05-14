@@ -1,16 +1,25 @@
-vim.cmd.packadd "packer.nvim"
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-require("packer").startup(function()
-    use 'wbthomason/packer.nvim'
-    use 'neoclide/coc.nvim'
-    use 'neovim/nvim-lspconfig'
-    use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim'
-    use 'vim-latex/vim-latex'
-    use 'EdenEast/nightfox.nvim'
-    use {
+local plugins = {
+    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
+    'williamboman/mason-lspconfig.nvim',
+    'vim-latex/vim-latex',
+    'EdenEast/nightfox.nvim',
+    {
         "hrsh7th/nvim-cmp",
-        requires = {
+        dependencies = {
             "hrsh7th/cmp-buffer", "hrsh7th/cmp-nvim-lsp",
             'quangnguyen30192/cmp-nvim-ultisnips', 'hrsh7th/cmp-nvim-lua',
             'octaltree/cmp-look', 'hrsh7th/cmp-path', 'hrsh7th/cmp-calc',
@@ -80,26 +89,12 @@ require("packer").startup(function()
 
           -- Set up lspconfig.
           require('mason').setup()
-          require('mason-lspconfig').setup_handlers({ function(server)
-            local opt = {
-              -- -- Function executed when the LSP server startup
-              -- on_attach = function(client, bufnr)
-              --   local opts = { noremap=true, silent=true }
-              --   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-              --   vim.cmd 'autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)'
-              -- end,
-              capabilities = require('cmp_nvim_lsp').update_capabilities(
-                vim.lsp.protocol.make_client_capabilities()
-              )
-            }
-            require('lspconfig')[server].setup(opt)
-          end })
+          require('mason-lspconfig').setup()
         end
-    }
-    use 'MunifTanjim/nui.nvim'
-
-    use 'nvim-treesitter/nvim-treesitter'
-    use {
+    },
+    'MunifTanjim/nui.nvim',
+    'nvim-treesitter/nvim-treesitter',
+    {
         'folke/noice.nvim',
         config = function()
             require("noice").setup({
@@ -121,15 +116,41 @@ require("packer").startup(function()
               },
             })
         end
-    }
-    use {
+    },
+    {
       'nvim-lualine/lualine.nvim',
-      requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+      dependencies = { 'nvim-tree/nvim-web-devicons', opt = true },
       config = function()
           require("lualine").setup {
               theme = 'material',
           }
       end
     }
-end)
+}
+local opts = {
+  performance = {
+    cache = {
+      enabled = true,
+    },
+    reset_packpath = true, -- reset the package path to improve startup time
+    rtp = {
+      reset = true, -- reset the runtime path to $VIMRUNTIME and your config directory
+      ---@type string[]
+      paths = {}, -- add any custom paths here that you want to includes in the rtp
+      ---@type string[] list any plugins you want to disable here
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        -- "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+}
+
+require("lazy").setup(plugins, opts)
 

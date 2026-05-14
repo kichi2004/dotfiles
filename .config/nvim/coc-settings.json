@@ -3,5 +3,26 @@
     "enable": true,
     "startupMessage": false,
     "executable.command": "~/.pyenv/shims/jedi-language-server"
+  },
+  "languageserver": {
+    "julia": {
+      "command" : "julia",
+      "args": [
+        "--startup-file=no",
+        "--history-file=no",
+        "-e",
+        "using LanguageServer, LanguageServer.SymbolServer; runserver()"
+      ],
+      "filetypes": ["julia"],
+      "initializationOptions": {},
+      "settings": {
+        "julia": {
+          "format": {
+            "indent": 4,
+            "ops": true
+          }
+        }
+      }
+    }
   }
 }
